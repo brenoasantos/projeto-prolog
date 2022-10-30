@@ -492,7 +492,7 @@ descendant(X, Y) :-
 	ancestor(Y, X).
 
 descendants(X, Descendant_of) :-
-	setof(A, descendant(X, A), Descendant_of).
+	findall(A, descendant(X, A), Descendant_of).
 
 %____________________________________________________________
 % ARYAS LIST 
@@ -616,13 +616,20 @@ power_of(Casa,Power):-
     findall(X, ((status(X,alive);status(X,dead)),house_of(X,C),C=Casa),Lista),write(Lista),
     length(Lista,Power).
 
+add_tail([],X,[X]).
+add_tail([H|T],X,[H|L]) :- add_tail(T,X,L).
+
+tamanho([],0).
+tamanho([_|W],N) :- tamanho(W,N1), N is N1+1.
+
+
 %_______Power_marriage______
-power_marriage(Nome1,Nome2,Z) :- is_single(Nome1),is_single(Nome2),lucasTinder(Nome1,Nome2),
-    findall(X,(brother(X,Nome2);sister(X,Nome2);
-           aunt(X,Nome2);nephew(X,Nome2);neice(X,Nome2)),ListaFamilia),
-    length(ListaFamilia,Power),nl,write(ListaFamilia).
+power_marriage(Nome1,Nome2,Z) :- lucasTinder(Nome1,Nome2),is_single(Nome1),is_single(Nome2),setof(X,(mother(X,Nome2);brother(X,Nome2);sister(X,Nome2);
+                                         aunt(X,Nome2);father(X,Nome2);nephew(X,Nome2);neice(X,Nome2);grandfather(X,Nome2);grandmother(X,Nome2)),Z),
+    append(Z,descendants(Nome2,X),ListaMontada),length(Z,Power),write(Power).
 
 lucasTinder(X,Y) :- (   male(X),female(Y));(   male(Y),female(X)).
+%____Avô e Avó______
+grandfather(Grandfather,Person) :- father(Father,Person),father(Grandfather,Father).
 
-bola(Nome2) :- setof(X,(brother(X,Nome2);sister(X,Nome2);
-           aunt(X,Nome2);nephew(X,Nome2);neice(X,Nome2)),Z),write(Z).
+grandmother(Grandmother,Person) :- parent(Grandmother,Mother), parent(Mother,Person), female(Grandmother).
