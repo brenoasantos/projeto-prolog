@@ -298,6 +298,70 @@ status(euron_greyjoy,alive).
 status(alannys_harlaw,alive).
 status(sarella_sand,alive).
 
+%____Dragons and related people (riders/owners)_____
+related(balerion, viserys_targaryen).
+related(vhagar, visenya_targaryen).
+related(vhagar, laena_velaryon).
+related(vhagar, aemond_targaryen).
+related(meraxes, rhaenys_targaryen).
+related(the cannibal, nobody).
+related(vermithor, jaehaerys_targaryen).
+related(vermithor, hugh_hammer).
+related(silverwing, alysanne_targaryen) .
+related(sheepstealer, nettles).
+related(dreamfyre, helaena targaryen).
+related(caraxes, daemon targaryen).
+related(meleys, rhaenys targaryen).
+related(syrax, rhaenyra targaryen).
+related(quicksilver, aenys targaryen).
+related(quicksilver, aegon targaryen).
+related(grey ghost, nobody).
+related(sunfyre, aegon targaryen).
+related(tessarion, daeron targaryen).
+related(seasmoke, laenor velaryon).
+related(vermax, jacaerys velaryon).
+related(arrax, daemon targaryen).
+related(tyraxes, joffrey velaryon).
+related(shrykos,  jaehaerys targaryen).
+related(morghul, jaehaera targaryen).
+related(stormcloud, aegon targaryen).
+related(morning, rhaena targaryen).
+related(moondancer, baela targaryen).
+related(drogon, daenerys targaryen).
+related(rhaegal, daenerys targaryen).
+related(viserion, daenerys targaryen).
+related(the last dragon, nobody).
+
+%_____Size of dragons________
+
+size(balerion, 28).
+size(vhagar, 27).
+size(meraxes, 26).
+size(the cannibal, 25).
+size(vermithor, 24).
+size(silverwing, 23) .
+size(sheepstealer, 22).
+size(dreamfyre, 21).
+size(caraxes, 20).
+size(meleys, 19).
+size(syrax, 18).
+size(quicksilver, 17).
+size(grey ghost, 16).
+size(sunfyre, 15).
+size(tessarion, 14).
+size(seasmoke, 13).
+size(vermax, 12).
+size(arrax, 11).
+size(tyraxes, 10).
+size(shrykos,  9).
+size(morghul, 8).
+size(stormcloud, 7).
+size(morning, 6).
+size(moondancer, 5).
+size(drogon, 4).
+size(rhaegal, 3).
+size(viserion, 2).
+size(the last dragon, 1).
 
 % For those unclear if dead or alive...
 status(X, unknown) :-
