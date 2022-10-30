@@ -538,6 +538,19 @@ aryas_list :-
 	Percentage is round(Percent),									% Round to the nearest integer.
 	format("Percentage complete: ~w%", [Percentage]), nl.
 
+grandfather(Grandfather,Person) :- 
+    split_string(Person,"_","",L),
+    not(member("unknown",L)),
+    father(Father,Person),
+    father(Grandfather,Father).
+
+grandmother(Grandmother,Person) :- 
+    split_string(Person,"_","",L),
+    not(member("unknown",L)),
+    parent(Grandmother,Mother),
+    parent(Mother,Person),
+    female(Grandmother).
+
 
 %____________________________________________________________
 % RIGHTFUL HEIR
@@ -627,17 +640,19 @@ not_unknown(X,Y):-
     split_string(Y,"_","",B),
     not(member("unknown",L)),
     not(member("unknown",B)).
-
-power_marriage(Nome1,Nome2,Power) :- 
-    %not_unknown(Nome1,Nome2),
-    %not(clan_checker(Nome1,Nome2)),
+unknown_remove(X):-
+    split_string(X,"_","",L),
+    not(member("unknown",L)).
+power_marriage(Nome1,Nome2,Allies) :- 
+    not_unknown(Nome1,Nome2),
+    not(clan_checker(Nome1,Nome2)),
 	lucasTinder(Nome1,Nome2),
     is_single(Nome1),
     is_single(Nome2),
-    setof(X,(mother(X,Nome2);brother(X,Nome2);sister(X,Nome2);aunt(X,Nome2);father(X,Nome2);nephew(X,Nome2);neice(X,Nome2);grandfather(X,Nome2);grandmother(X,Nome2)),Z),
+    setof(X,(mother(X,Nome2),unknown_remove(X);brother(X,Nome2),unknown_remove(X);sister(X,Nome2),unknown_remove(X);aunt(X,Nome2),unknown_remove(X);father(X,Nome2),unknown_remove(X);nephew(X,Nome2),unknown_remove(X);neice(X,Nome2),unknown_remove(X);grandfather(X,Nome2),unknown_remove(X);grandmother(X,Nome2),unknown_remove(X)),Z),
     append(Z,descendants(Nome2,X),ListaMontada),
-    length(Z,Power),
-    write(Power).
+    length(Z,Allies),
+    !.
 lucasTinder(X,Y) :- (   male(X),female(Y));(   male(Y),female(X)).
 %_________________________________________________________________________
 
