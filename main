@@ -723,7 +723,7 @@ unknown_remove(X):-
     split_string(X,"_","",L),
     not(member("unknown",L)).
 
-power_marriage(Nome1,Nome2,Allies) :- 
+marriage_power(Nome1,Nome2,Allies) :- 
     not_unknown(Nome1,Nome2),
     not(clan_checker(Nome1,Nome2)),
 	validCouple(Nome1,Nome2),
