@@ -304,40 +304,40 @@ related(vhagar, visenya_targaryen).
 related(vhagar, laena_velaryon).
 related(vhagar, aemond_targaryen).
 related(meraxes, rhaenys_targaryen).
-related(the cannibal, nobody).
+related(the_cannibal, nobody).
 related(vermithor, jaehaerys_targaryen).
 related(vermithor, hugh_hammer).
 related(silverwing, alysanne_targaryen) .
 related(sheepstealer, nettles).
-related(dreamfyre, helaena targaryen).
-related(caraxes, daemon targaryen).
-related(meleys, rhaenys targaryen).
-related(syrax, rhaenyra targaryen).
-related(quicksilver, aenys targaryen).
-related(quicksilver, aegon targaryen).
-related(grey ghost, nobody).
-related(sunfyre, aegon targaryen).
-related(tessarion, daeron targaryen).
-related(seasmoke, laenor velaryon).
-related(vermax, jacaerys velaryon).
-related(arrax, daemon targaryen).
-related(tyraxes, joffrey velaryon).
-related(shrykos,  jaehaerys targaryen).
-related(morghul, jaehaera targaryen).
-related(stormcloud, aegon targaryen).
-related(morning, rhaena targaryen).
-related(moondancer, baela targaryen).
-related(drogon, daenerys targaryen).
-related(rhaegal, daenerys targaryen).
-related(viserion, daenerys targaryen).
-related(the last dragon, nobody).
+related(dreamfyre, helaena_targaryen).
+related(caraxes, daemon_targaryen).
+related(meleys, rhaenys_targaryen).
+related(syrax, rhaenyra_targaryen).
+related(quicksilver, aenys_targaryen).
+related(quicksilver, aegon_targaryen).
+related(grey_ghost, nobody).
+related(sunfyre, aegon_targaryen).
+related(tessarion, daeron_targaryen).
+related(seasmoke, laenor_velaryon).
+related(vermax, jacaerys_velaryon).
+related(arrax, daemon_targaryen).
+related(tyraxes, joffrey_velaryon).
+related(shrykos,  jaehaerys_targaryen).
+related(morghul, jaehaera_targaryen).
+related(stormcloud, aegon_targaryen).
+related(morning, rhaena_targaryen).
+related(moondancer, baela_targaryen).
+related(drogon, daenerys_targaryen).
+related(rhaegal, daenerys_targaryen).
+related(viserion, daenerys_targaryen).
+related(the_last_dragon, nobody).
 
 %_____Size of dragons________
 
 size(balerion, 28).
 size(vhagar, 27).
 size(meraxes, 26).
-size(the cannibal, 25).
+size(the_cannibal, 25).
 size(vermithor, 24).
 size(silverwing, 23) .
 size(sheepstealer, 22).
@@ -346,7 +346,7 @@ size(caraxes, 20).
 size(meleys, 19).
 size(syrax, 18).
 size(quicksilver, 17).
-size(grey ghost, 16).
+size(grey_ghost, 16).
 size(sunfyre, 15).
 size(tessarion, 14).
 size(seasmoke, 13).
@@ -361,7 +361,7 @@ size(moondancer, 5).
 size(drogon, 4).
 size(rhaegal, 3).
 size(viserion, 2).
-size(the last dragon, 1).
+size(the_last_dragon, 1).
 
 % For those unclear if dead or alive...
 status(X, unknown) :-
@@ -637,56 +637,68 @@ is_single(X):- \+ parent(X,_Y).
 
 house_of(X,Y) :-
     X='jon_snow',
-    (   Y='stark';Y='targaryen').
-
+	Y='targaryen',
+    !.
 
 house_of(X,Y):-
     X='alerie_hightower',
-    Y=tyrell.
+    Y='tyrell',
+    !.
 
 house_of(X,Y):-
     (   X='gendry'; X='cassana_estermont'),
-    Y=baratheon.
+    Y='baratheon',
+    !.
 
 house_of(X,Y):-
-    (   X='mellario_of_norvos';X='aegon_targaryen';X='rhaenys_targaryen'),
-    Y=martell.
+    (   X='mellario_of_norvos'),
+    Y='martell',
+    !.
 
 house_of(X,Y):-
     X='alannys_harlaw',
-    Y=greyjoy.
+    Y='greyjoy',
+    !.
 %_________________________________________
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("stark",L),Y='stark'.
+    member("stark",L),Y='stark',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("tyrell",L),Y='tyrell'.
+    member("tyrell",L),Y='tyrell',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("targaryen",L),Y='targaryen'.
+    member("targaryen",L),Y='targaryen',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("martell",L),Y='martell'.
+    member("martell",L),Y='martell',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("sand",L),Y='martell'.
+    member("sand",L),Y='martell',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("lannister",L),Y='lannister'.
+    member("lannister",L),Y='lannister',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("greyjoy",L),Y='greyjoy'.
+    member("greyjoy",L),Y='greyjoy',
+    !.
 
 house_of(X,Y):-
     split_string(X,"_","",L),
-    member("baratheon",L),Y='baratheon'.
+    member("baratheon",L),Y='baratheon',
+    !.
 
 %______Power_of______ :
 power_of(Casa,Power):-
@@ -694,31 +706,53 @@ power_of(Casa,Power):-
     length(Lista,Power).
 
 %_______Power_marriage______
+
 clan_checker(Nome1,Nome2):-
     house_of(Nome1,B),
     house_of(Nome2,H),
     B=H,
     !.
+
 not_unknown(X,Y):-
     split_string(X,"_","",L),
     split_string(Y,"_","",B),
     not(member("unknown",L)),
     not(member("unknown",B)).
+
 unknown_remove(X):-
     split_string(X,"_","",L),
     not(member("unknown",L)).
+
 power_marriage(Nome1,Nome2,Allies) :- 
     not_unknown(Nome1,Nome2),
     not(clan_checker(Nome1,Nome2)),
-	lucasTinder(Nome1,Nome2),
+	validCouple(Nome1,Nome2),
     is_single(Nome1),
     is_single(Nome2),
-    setof(X,(mother(X,Nome2),unknown_remove(X);brother(X,Nome2),unknown_remove(X);sister(X,Nome2),unknown_remove(X);aunt(X,Nome2),unknown_remove(X);father(X,Nome2),unknown_remove(X);nephew(X,Nome2),unknown_remove(X);neice(X,Nome2),unknown_remove(X);grandfather(X,Nome2),unknown_remove(X);grandmother(X,Nome2),unknown_remove(X)),Z),
-    append(Z,descendants(Nome2,X),ListaMontada),
-    length(Z,Allies),
+    setof(X,((   mother(X,Nome2);
+                               brother(X,Nome2);
+                               sister(X,Nome2);
+                               aunt(X,Nome2);
+                               father(X,Nome2);
+                               nephew(X,Nome2);
+                               neice(X,Nome2);
+             				   uncle(X,Nome2);
+                               grandfather(X,Nome2);
+             				   descendant(Nome2,X);
+                               grandmother(X,Nome2)),
+                			   unknown_remove(X)
+            ),Z),
+    length(Z,Size),
+    Allies is Size+1,
+    write(Z),
     !.
-lucasTinder(X,Y) :- (   male(X),female(Y));(   male(Y),female(X)).
+
+validCouple(X,Y) :- (   male(X),female(Y));(   male(Y),female(X)).
 %_________________________________________________________________________
 
 bola(Nome2) :- setof(X,(brother(X,Nome2);sister(X,Nome2);
            aunt(X,Nome2);nephew(X,Nome2);neice(X,Nome2)),Z),write(Z).
+
+%_______Power-by-Marriage______
+
+%power_by_marriage(Nome1,Nome2,Power) :-
