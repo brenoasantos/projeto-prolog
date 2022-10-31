@@ -866,3 +866,5 @@ writeln("Qual o tamanho do vertmithor?"),
     TamCerto = a,
     TamCerto == Tamanho,
     write("boa!!")),!.
+
+
