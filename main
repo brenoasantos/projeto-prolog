@@ -637,7 +637,7 @@ is_single(X):- \+ parent(X,_Y).
 
 house_of(X,Y) :-
     X='jon_snow',
-	Y='targaryen',
+    (   Y='stark';Y='targaryen'),
     !.
 
 house_of(X,Y):-
@@ -706,24 +706,20 @@ power_of(Casa,Power):-
     length(Lista,Power).
 
 %_______Power_marriage______
-
 clan_checker(Nome1,Nome2):-
     house_of(Nome1,B),
     house_of(Nome2,H),
     B=H,
     !.
-
 not_unknown(X,Y):-
     split_string(X,"_","",L),
     split_string(Y,"_","",B),
     not(member("unknown",L)),
     not(member("unknown",B)).
-
 unknown_remove(X):-
     split_string(X,"_","",L),
     not(member("unknown",L)).
-
-marriage_power(Nome1,Nome2,Allies) :- 
+power_marriage(Nome1,Nome2,Z) :- 
     not_unknown(Nome1,Nome2),
     not(clan_checker(Nome1,Nome2)),
 	validCouple(Nome1,Nome2),
@@ -742,17 +738,131 @@ marriage_power(Nome1,Nome2,Allies) :-
                                grandmother(X,Nome2)),
                 			   unknown_remove(X)
             ),Z),
-    length(Z,Size),
-    Allies is Size+1,
+    length(Z,Allies),
     write(Z),
     !.
 
 validCouple(X,Y) :- (   male(X),female(Y));(   male(Y),female(X)).
-%_________________________________________________________________________
-
-bola(Nome2) :- setof(X,(brother(X,Nome2);sister(X,Nome2);
-           aunt(X,Nome2);nephew(X,Nome2);neice(X,Nome2)),Z),write(Z).
 
 %_______Power-by-Marriage______
 
-%power_by_marriage(Nome1,Nome2,Power) :-
+%power_by_marriage(Nome1,Nome2,Power) :- 
+    
+%_____QUIZZZZZ_____
+    
+quiz(Got) :- write("Escolha uma pergunta de 1 a 10: "),
+    read(X),
+    pergunta(X),!.
+
+pergunta(X):-
+    
+(   X==1 ,
+    %sizem(vermithor,X),write(X),
+writeln("Qual o tamanho do vertmithor?"),
+    writeln("- 30"),
+    writeln("- 24"),
+    writeln("- 12"),
+    write("Digite a resposta: "),
+    read(Tamanho),
+    TamCerto is 24,
+    TamCerto == Tamanho,
+    write("boa!!")),!;
+    
+(   X==2,
+    writeln("Quem é o onwer/rider do grey_ghost?"),
+    writeln("- rickard_stark"),
+    writeln("- tyene_sand"),
+    writeln("- nobody"),
+    write("Digite a resposta: "),
+    read(Name),
+    NameCerto = nobody,
+    NameCerto == Name,
+    writeln("boa!!")),!;
+    
+(   X==3,
+    writeln("Quem é o pai de arya_stark"),
+    writeln("- jon_snow"),
+    writeln("- eddard_stark"),
+    writeln("- aegon_V_targaryen"),
+    write("Digite a resposta: "),
+    read(NamePai),
+    PaiCerto = eddard_stark,
+    PaiCerto == NamePai,
+    write("boa!!")),!;
+    
+(   X==4,
+    writeln("Qual o maior dragão conhecido atualmente?"),
+    writeln("- morghul"),
+    writeln("- balerion "),
+    writeln("- vhagar "),
+    write("Digite a resposta: "),
+    read(Tamanho),
+    TamCerto = balerion,
+    TamCerto == Tamanho,
+    write("boa!!")),!;
+    
+(   X==5,
+    writeln("Qual família possui mais poder?"),
+    writeln("- lannister"),
+    writeln("- stark "),
+    writeln("- targaryen "),
+    write("Digite a resposta: "),
+    read(Tamanho),
+    TamCerto = lannister,
+    TamCerto == Tamanho,
+    write("boa!!")),!;
+    
+(   X==6,
+    writeln("quais são os pais de jon snow e seu verdadeiro nome? "),
+    writeln("a- Pais : tyene sand e yara greyjoy Nome : marcelinho"),
+    writeln("b- Pais: martyn lannister e nymeria sand Nome : Viserys "),
+    writeln("c- Pais: rhaegar targaryen e lyanna stark Nome : Aegon "),
+    write("Digite a letra correta: "),
+    read(Letra),
+    LetraCerto = c,
+    LetraCerto == Letra,
+    write("boa!!")),!;
+    
+(   X==7,
+    writeln("Quantas casas existem em Game of Thrones ?"),
+    writeln("- 4 "),
+    writeln("- 7  "),
+    writeln("- 10 "),
+    write("Digite a resposta: "),
+    read(Tamanho),
+    TamCerto = 7,
+    TamCerto == Tamanho,
+    write("boa!!")),!;
+    
+(   X==8,
+    writeln("Qual o clan que possui mais domínio sobre os dragões"),
+    writeln("- targaryen"),
+    writeln("- stark "),
+    writeln("- martell "),
+    write("Digite a resposta: "),
+    read(Tamanho),
+    TamCerto = targaryen,
+    TamCerto == Tamanho,
+    write("boa!!")),!;
+    
+(   X==9,
+    writeln("Quantas vezes jon snow morreu na série ?"),
+    writeln("- 0"),
+    writeln("- 3 "),
+    writeln("- 1 "),
+    write("Digite a resposta: "),
+    read(Tamanho),
+    TamCerto = 1,
+    TamCerto == Tamanho,
+    write("boa!!")),!;
+    
+(   X==10,
+    writeln("Qual os nomes do dragão de daenerys?"),
+    writeln("a- drogon , rhaegal , viserion"),
+    writeln("b- drogon , balerion , vhagar "),
+    writeln("c- vhagar , rhaegal , vermithor "),
+    write("Digite a letra correta: "),
+    read(Tamanho),
+    TamCerto = a,
+    TamCerto == Tamanho,
+    write("boa!!")),!.
